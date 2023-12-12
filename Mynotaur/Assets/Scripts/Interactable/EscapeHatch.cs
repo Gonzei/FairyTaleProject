@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EscapeHatch : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class EscapeHatch : MonoBehaviour
     public bool isPlayer;
     public AudioSource source;
     public GameObject findKeyPrompt;
+
+    public string sceneName;
+
+    public LevelChanger levelChanger;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +31,8 @@ public class EscapeHatch : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.E)) 
                 {
                     handUI.SetActive(false);
+                    levelChanger.FadeToLevel(sceneName);
+                    SceneManager.LoadScene(sceneName);
                 }
             }
         }
@@ -33,6 +40,8 @@ public class EscapeHatch : MonoBehaviour
         {
             source.Play();
             findKeyPrompt.SetActive(true);
+
+            Invoke("RemoveLockedWarning", 2);
         }
     }
 
@@ -42,8 +51,7 @@ public class EscapeHatch : MonoBehaviour
         {
             isPlayer = true;
             handUI.SetActive(true);
-
-            Invoke("RemoveLockedWarning", 2);
+            
         }
     }
 
