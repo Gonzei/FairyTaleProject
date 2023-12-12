@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EscapeHatch : MonoBehaviour
 {
     public GameObject handUI;
     public GameObject hasKey;
     public bool isPlayer;
+    public AudioSource source;
+    public GameObject findKeyPrompt;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,11 @@ public class EscapeHatch : MonoBehaviour
                 }
             }
         }
+        else if (hasKey.activeSelf == false && Input.GetKeyDown(KeyCode.E))
+        {
+            source.Play();
+            findKeyPrompt.SetActive(true);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -34,6 +42,8 @@ public class EscapeHatch : MonoBehaviour
         {
             isPlayer = true;
             handUI.SetActive(true);
+
+            Invoke("RemoveLockedWarning", 2);
         }
     }
 
@@ -44,5 +54,10 @@ public class EscapeHatch : MonoBehaviour
             isPlayer = false;
             handUI.SetActive(false);
         }
+    }
+
+    void RemoveLockedWarning()
+    {
+        findKeyPrompt.SetActive(false);
     }
 }
