@@ -42,6 +42,7 @@ public class KeyPickUp : MonoBehaviour
             {
                 keyImage.SetActive(true);
                 hasKey.SetActive(true);
+                handUI.SetActive(false);
                 Destroy(gameObject);
             }
         }
