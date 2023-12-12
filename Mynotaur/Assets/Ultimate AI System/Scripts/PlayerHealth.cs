@@ -26,19 +26,6 @@ public class PlayerHealth : MonoBehaviour
 	{
 		if (health < 0f) health = 0f;
 		if (health <= 0f) Die();
-
-
-		if (Input.GetKeyDown(KeyCode.G))  //If the G-Key is pressed the closest AI will take 20 damage. This is just for testing and a better way of calling
-		{                   					 
-			GetClosestAI().GetComponent<UltimateAI>().TakeDamage(20, this);  // the TakeDamage() function is from the player itself when attacking the AI
-																			 // (e.g. if you have a pistol its bullets should call this function whenever
-																			 // they collide with the AI).
-		}
-
-		else if (Input.GetKeyDown(KeyCode.P) && audioSource != null)
-		{
-			audioSource.Play();
-		}
 	}
 
 	private Transform GetClosestAI()
