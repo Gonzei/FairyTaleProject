@@ -22,6 +22,9 @@ public class PlayerHealth : MonoBehaviour
 	[Tooltip("Make an empty game object and position it in the center of your player object.")]
 	public Transform playerCenter;
 
+	[SerializeField] public GameObject deathCamera;
+	[SerializeField] public GameObject deathCanvas;
+
 	private void Update()
 	{
 		if (health < 0f) health = 0f;
@@ -47,6 +50,9 @@ public class PlayerHealth : MonoBehaviour
 	public void Die()
 	{
 		foreach (UltimateAI ai in Object.FindObjectsOfType(typeof(UltimateAI))) if (ai.players.Contains(this)) ai.players.Remove(this);
-		Destroy(this.gameObject);
+		deathCamera.SetActive(true);
+		deathCanvas.SetActive(true);
+;		Cursor.lockState = CursorLockMode.None;
+        Destroy(this.gameObject);
 	}
 }

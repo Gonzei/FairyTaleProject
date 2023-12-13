@@ -12,6 +12,7 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 using System.Linq;
 using Ultimate.AI.Utils;
+using UnityEngine.UI;
 
 namespace Ultimate.AI
 {
@@ -65,7 +66,7 @@ namespace Ultimate.AI
 		[Tooltip("Maximum health of the AI.")]
 		[Range(0, 1000)]
 		[SerializeField]
-		private int health;
+		public int health;
 		[Tooltip("If this is toggled a green bounding box will be displayed in the editor window. It represents the render distance of your AI.")]
 		[SerializeField]
 		private bool showRenderDistance;
@@ -313,6 +314,8 @@ namespace Ultimate.AI
 
 		[HideInInspector]
 		public Transform player, playerCenter, playerIKPosition;
+
+		[SerializeField] public GameObject canvas;
 
 		[HideInInspector]
 		public int effectsDealt;
@@ -1073,11 +1076,8 @@ namespace Ultimate.AI
 
 			if (!useRagdoll)
 			{
-				int randomNumber = Random.Range(0, deathAnimations); //We are getting a random number.
-				anim.SetTrigger("Death" + randomNumber.ToString()); //And here we are creating a string using the number and the word attack. This way a trigger is being formed and sent to the animator.
-				var clip = deathSounds[Random.Range(0, deathSounds.Length)]; //A random sound is loaded and the played.
-				audioSource.PlayOneShot(clip);
-				StartCoroutine(DeathWait(2f));
+				canvas.SetActive(true);
+				Cursor.lockState = CursorLockMode.None;
 			}
 			else
 			{
